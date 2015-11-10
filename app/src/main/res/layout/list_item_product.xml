@@ -18,32 +18,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ProgressBar
-                android:id="@+id/loading"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true" />
-
-            <ImageView
-                android:id="@+id/productImg"
+            <RelativeLayout
+                android:id="@+id/imgLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true" />
+
+                <ImageView
+                    android:id="@+id/productImg"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/productTitle"
                 style="@style/titles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productImg"
+                android:layout_below="@+id/imgLayout"
                 android:textColor="#000" />
 
             <TextView
                 android:id="@+id/productPrice"
+                style="@style/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                style="@style/price" />
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

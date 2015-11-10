@@ -8,12 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fekrasoftware.androidtask.R;
 import com.fekrasoftware.androidtask.model.Product;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -55,13 +56,24 @@ public class DetailFragment extends Fragment {
         detailFragment = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, detailFragment);
         // set image height
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dp(product.getImage().getWidth())
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(product.getImage().getWidth())
                 , dp(product.getImage().getHeight()));
         detailImg.setLayoutParams(params);
 
         title.setText(product.getProductDescription());
         price.setText("$" + product.getPrice());
-        Picasso.with(getContext()).load(product.getImage().getUrl()).into(detailImg);
+        Picasso.with(getContext()).load(product.getImage().getUrl()).into(detailImg, new Callback() {
+            @Override
+            public void onSuccess() {
+                detailImg.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
         return detailFragment;
     }
 

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.fekrasoftware.androidtask.ui.HomePageFragment;
-import com.fekrasoftware.androidtask.SimpleTaskApp;
+import com.fekrasoftware.androidtask.AndroidTaskApp;
 import com.fekrasoftware.androidtask.model.Product;
 import com.fekrasoftware.androidtask.utils.Utility;
 
@@ -28,7 +28,7 @@ public class NetworkChangeListener extends BroadcastReceiver {
             // do some work
             Log.d("internet", "true");
             // prepare call in Retrofit 2.0
-            ApiService apiService = SimpleTaskApp.retrofit.create(ApiService.class);
+            ApiService apiService = AndroidTaskApp.retrofit.create(ApiService.class);
 
             Call<List<Product>> call = apiService.getProducts(10, 1);
             //asynchronous call

@@ -10,6 +10,6 @@ import java.util.ArrayList;
  */
 public class Database {
     public static ArrayList<Product> getProducts() {
-        return (ArrayList) new Select().from(Product.class).execute();
+        return (ArrayList) new Select().from(Product.class).orderBy("product_id ASC").execute();
     }
 }

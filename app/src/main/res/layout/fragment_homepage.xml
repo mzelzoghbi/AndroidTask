@@ -16,4 +16,13 @@
             android:layout_margin="8dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/noData"
+        style="@style/titles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_nodata"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:alpha="0.6" />
 </RelativeLayout>

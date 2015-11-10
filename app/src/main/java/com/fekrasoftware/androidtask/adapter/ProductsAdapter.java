@@ -55,18 +55,18 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             super(itemView);
             ButterKnife.bind(this, itemView);
             cardView.setOnClickListener(this);
+            productTitle.setOnClickListener(this);
+            productPrice.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.productCard:
-                    ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction()
-                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                            .replace(R.id.container, DetailFragmentPager.newInstance(products , getAdapterPosition())).addToBackStack(null).commit();
-                    break;
-            }
+            ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                    .replace(R.id.container, DetailFragmentPager.newInstance(products, getAdapterPosition())).addToBackStack(null).commit();
         }
+
+
     }
 
     @Override

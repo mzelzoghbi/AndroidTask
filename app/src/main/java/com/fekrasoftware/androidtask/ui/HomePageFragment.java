@@ -2,6 +2,7 @@ package com.fekrasoftware.androidtask.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fekrasoftware.androidtask.R;
-import com.fekrasoftware.androidtask.SimpleTaskApp;
+import com.fekrasoftware.androidtask.AndroidTaskApp;
 import com.fekrasoftware.androidtask.adapter.ProductsAdapter;
 import com.fekrasoftware.androidtask.controller.ApiService;
 import com.fekrasoftware.androidtask.controller.Database;
@@ -73,7 +74,9 @@ public class HomePageFragment extends Fragment {
     }
 
     public void notifyDataSetChanged() {
+        adapter.setProducts(Database.getProducts());
         adapter.notifyDataSetChanged();
+        homePageFragment.findViewById(R.id.noData).setVisibility(View.GONE);
     }
 
     @Nullable
@@ -132,7 +135,13 @@ public class HomePageFragment extends Fragment {
                 if (!loading) {
                     if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                         loading = true;
-                        getData();
+                        if (Utility.isNetworkAvailable(getContext()))
+                            getData();
+                        else {
+                            Snackbar.make(homePageFragment, getString(R.string.network_error), Snackbar.LENGTH_LONG)
+                                    .show();
+                            loading = false;
+                        }
                     }
                 }
             }
@@ -150,7 +159,7 @@ public class HomePageFragment extends Fragment {
         firstTime = false;
         if (Utility.isNetworkAvailable(getContext())) {
             // prepare call in Retrofit 2.0
-            apiService = SimpleTaskApp.retrofit.create(ApiService.class);
+            apiService = AndroidTaskApp.retrofit.create(ApiService.class);
 
             call = apiService.getProducts(10, products.size() + 1);
             //asynchronous call
@@ -168,6 +177,7 @@ public class HomePageFragment extends Fragment {
                                     adapter.notifyDataSetChanged();
                                     loading = false;
                                     swipeRefreshLayout.setRefreshing(false);
+                                    homePageFragment.findViewById(R.id.noData).setVisibility(View.GONE);
                                 }
                             });
 
@@ -193,8 +203,15 @@ public class HomePageFragment extends Fragment {
         if (products != null && products.size() > 0) {
             adapter.setProducts(products);
             adapter.notifyDataSetChanged();
-            swipeRefreshLayout.setRefreshing(false);
         }
+        swipeRefreshLayout.setRefreshing(false);
+        if(products == null || products.size() == 0){
+            homePageFragment.findViewById(R.id.noData).setVisibility(View.VISIBLE);
+        }else{
+            homePageFragment.findViewById(R.id.noData).setVisibility(View.GONE);
+
+        }
+
     }
 
     @Override

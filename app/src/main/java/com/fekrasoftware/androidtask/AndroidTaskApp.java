@@ -17,7 +17,7 @@ import retrofit.Retrofit;
 /**
  * Created by mohamedzakaria on 11/7/15.
  */
-public class SimpleTaskApp extends Application {
+public class AndroidTaskApp extends Application {
     public static Retrofit retrofit;
     public static DisplayImageOptions options;
 
