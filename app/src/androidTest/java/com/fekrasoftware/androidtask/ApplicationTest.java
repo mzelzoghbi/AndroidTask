@@ -1,4 +1,4 @@
-package com.fekrasoftware.simpletask;
+package com.fekrasoftware.androidtask;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

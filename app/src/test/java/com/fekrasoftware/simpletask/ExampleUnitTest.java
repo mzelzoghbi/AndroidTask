@@ -1,4 +1,4 @@
-package com.fekrasoftware.simpletask;
+package com.fekrasoftware.androidtask;
 
 import org.junit.Test;
 
